@@ -1,7 +1,12 @@
-let stack = {
-  isEmpty: () => true,
+let stackFactory = () => {
+  let empty = true;
+  return {
+  isEmpty: () => empty,
   size: () => 0,
-};
+  push: () => empty = false,
+}};
+
+let stack = stackFactory();
 
 
 
@@ -21,7 +26,12 @@ describe('a stack', () => {
     expect(stack.size()).toBe(0);
   });
 
-  it.todo('is not empty when pushed');
+  it('is not empty when pushed', () => {
+    stack.push();
+    expect(stack.isEmpty()).toBe(false);
+  });
+
+
   it.todo('stack size is 1 when pushed');
   it.todo('stack is empty when pushed and popped');
   it.todo('stack size is 0 when pushed and popped');
