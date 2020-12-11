@@ -1,9 +1,13 @@
+let isPalindrome = () => true;
+
 describe("the palindrome canary spec", () => {
   it("shows the infrastructure works", () => {
     expect(true).toBe(true);
   });
 
-  it.todo("true for mom");
+  it("true for mom", () => {
+    expect(isPalindrome('mom')).toBe(true);
+  });
   it.todo("false for dude");
   it.todo("true for mom mom");
   it.todo("false for dad mom");
