@@ -1,19 +1,17 @@
-let stackFactory = () => {
-  let count = 0;
-  let element;
+let stackFactory = (capacity = 2) => {
+  if(capacity < 1) throw new Error('invalid capacity');
+  let elements = [];
   return {
-    isEmpty: () => count === 0,
-    size: () => count,
+    isEmpty: () => elements.length === 0,
+    size: () => elements.length,
     push: (ele) => {
-      if (count === 2) throw new Error('capacity overflow error');
-      element = ele;
-      count++;
+      if (elements.length === capacity) throw new Error('capacity overflow error');
+      elements.push(ele);
     },
     pop: () => {
-      if (count === 0) throw new Error('capacity underflow error');
+      if (elements.length === 0) throw new Error('capacity underflow error');
       empty = true;
-      count -= 1;
-      return element;
+      return elements.pop();
     },
   };
 };
@@ -28,7 +26,7 @@ describe("the stack canary spec", () => {
 
 describe("a stack", () => {
   beforeEach(() => {
-    stack = stackFactory();
+    stack = stackFactory(2);
   });
 
   it("starts empty", () => {
@@ -80,6 +78,16 @@ describe("a stack", () => {
     expect(stack.pop()).toBe('a');
   });
 
-  it.todo("pops two items with the most recent first");
-  it.todo("accepts only a positive capacity");
+  it("pops two items with the most recent first", () => {
+    stack.push('1');
+    stack.push('2')
+    expect(stack.pop()).toBe('2');
+    expect(stack.pop()).toBe('1');
+  });
+
+  it("accepts only a positive capacity", () => {
+    expect(() => {
+      stack = stackFactory(-1);
+    }).toThrowError('invalid capacity');
+  });
 });
